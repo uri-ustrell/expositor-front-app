@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
 
-const Frames = ({ expositor }) => {
+const Frames = ({ frames }) => {
 	return (
 		<FlatList
-			data={expositor}
+			data={frames}
 			renderItem={({ item }) => (
 				<View style={styles.frameWrapper}>
 					<Image

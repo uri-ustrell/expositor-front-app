@@ -20,7 +20,7 @@ const HomePage = () => {
 	return (
 		<View style={styles.container}>
 			<FilmPerforations NumFrames={Data.expositor.cat.length} />
-			<Frames expositor={Data.expositor.cat} />
+			<Frames frames={Data.expositor.cat} />
 			<FilmPerforations NumFrames={Data.expositor.cat.length} />
 		</View>
 	);
