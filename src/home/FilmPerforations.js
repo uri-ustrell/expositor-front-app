@@ -5,7 +5,7 @@ const FilmPerforations = ({ NumFrames }) => {
 	const filmHoles = num => {
 		let holes = [];
 		for (let hole = 0; hole < num * 18; hole++) {
-			holes.push(<View style={styles.hole} key={hole}></View>);
+			holes.push(<View style={styles.hole} key={`${hole}`}></View>);
 		}
 		return holes;
 	};

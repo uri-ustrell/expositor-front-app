@@ -15,7 +15,7 @@ const Frames = ({ frames }) => {
 					/>
 				</View>
 			)}
-			keyExtractor={item => item.id}
+			keyExtractor={item => `${item.id}`}
 			initialScrollIndex={0}
 			ItemSeparatorComponent={() => <View style={{ height: 40 }}></View>}
 		/>
