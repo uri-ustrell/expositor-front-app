@@ -24,8 +24,10 @@ const Frames = ({ frames }) => {
 
 const styles = StyleSheet.create({
 	frame: {
-		width: 1180,
-		height: 645,
+		//width: 1180,
+		//height: 645,
+		width: 550,
+		height: 300,
 		resizeMode: "contain",
 		borderRadius: 10
 	},
