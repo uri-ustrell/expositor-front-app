@@ -1,61 +1,90 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { StyleSheet, Text, Animated } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/AntDesign";
 
-const AnimatedButton = Animated.createAnimatedComponent(ActionButton);
-
-const Actions = ({
-	languages,
-	selectedLang,
-	handleTopClick,
-	handleSelectLang,
-	isUserActive
-}) => {
-	const [opacity] = useState(new Animated.Value(0.7));
-	useEffect(() => {
-		Animated.timing(opacity, { toValue: 0, duration: 2000 }).start();
-	}, [isUserActive]);
-
-	return (
-		(isUserActive && [
-			<AnimatedButton
-				buttonColor="rgb(174, 174, 174)"
-				position="left"
-				key="language button"
-				buttonText={selectedLang}
-				style={{ opacity: opacity }}
-			>
-				{languages.map(lang => (
-					<ActionButton.Item
-						buttonColor="#9b59b6"
-						onPress={() => handleSelectLang(lang)}
-						key={lang}
-					>
-						<Text>{lang}</Text>
-					</ActionButton.Item>
-				))}
-			</AnimatedButton>,
-			<AnimatedButton
-				buttonColor="rgb(174, 174, 174)"
-				onPress={() => handleTopClick()}
-				renderIcon={() => (
-					<Icon name="up" style={styles.actionButtonIcon} />
-				)}
-				key="top button"
-				style={{ opacity: opacity }}
-			></AnimatedButton>
-		]) ||
-		[]
-	);
-};
+const ActionsAnimated = Animated.createAnimatedComponent(ActionButton);
 
 const styles = StyleSheet.create({
 	actionButtonIcon: {
 		fontSize: 20,
 		height: 22,
 		color: "white"
+	},
+	buttonOptionsTxt: {
+		color: "#fff"
 	}
 });
 
-export default Actions;
+export default class Actions extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	state = {
+		animatedOpacity: new Animated.Value(0.85)
+	};
+
+	buttonStyles = {
+		opacity: this.state.animatedOpacity
+	};
+
+	componentDidMount() {
+		this.animateBtnsOpacity(this.props.needButtons);
+	}
+
+	componentDidUpdate() {
+		this.animateBtnsOpacity(this.props.needButtons);
+	}
+
+	animateBtnsOpacity(needButtons) {
+		if (!needButtons) {
+			Animated.timing(this.state.animatedOpacity, {
+				toValue: 0,
+				duration: 1000
+			}).start();
+		} else {
+			Animated.timing(this.state.animatedOpacity, {
+				toValue: 0.85,
+				duration: 300
+			}).start();
+		}
+		console.log(needButtons);
+		setTimeout(() => console.log(this.state.animatedOpacity), 200);
+		setTimeout(() => console.log(this.state.animatedOpacity), 500);
+		setTimeout(() => console.log(this.state.animatedOpacity), 700);
+		setTimeout(() => console.log(this.state.animatedOpacity), 1000);
+	}
+
+	render() {
+		return (
+			<>
+				<ActionsAnimated
+					style={this.buttonStyles}
+					buttonColor="rgb(174, 174, 174)"
+					position="left"
+					key="language button"
+					buttonText={this.props.selectedLang}
+				>
+					{this.props.languages.map(lang => (
+						<ActionButton.Item
+							onPress={() => this.props.handleSelectLang(lang)}
+							key={lang}
+						>
+							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
+						</ActionButton.Item>
+					))}
+				</ActionsAnimated>
+				<ActionsAnimated
+					style={this.buttonStyles}
+					buttonColor="rgb(174, 174, 174)"
+					onPress={() => this.props.handleTopClick()}
+					renderIcon={() => (
+						<Icon name="up" style={styles.actionButtonIcon} />
+					)}
+					key="top button"
+				></ActionsAnimated>
+			</>
+		);
+	}
+}
