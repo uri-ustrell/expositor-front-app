@@ -49,11 +49,6 @@ export default class Actions extends React.Component {
 				duration: 300
 			}).start();
 		}
-		console.log(needButtons);
-		setTimeout(() => console.log(this.state.animatedOpacity), 200);
-		setTimeout(() => console.log(this.state.animatedOpacity), 500);
-		setTimeout(() => console.log(this.state.animatedOpacity), 700);
-		setTimeout(() => console.log(this.state.animatedOpacity), 1000);
 	}
 
 	render() {
