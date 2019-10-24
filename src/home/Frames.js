@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, FlatList, Image } from "react-native";
+import ImageCache from "./CacheImage";
 
 export default class Frames extends React.Component {
 	constructor(props) {
@@ -26,12 +27,7 @@ export default class Frames extends React.Component {
 				data={this.props.frames}
 				renderItem={({ item }) => (
 					<View style={styles.frameWrapper}>
-						<Image
-							style={styles.frame}
-							source={{
-								uri: item.photo
-							}}
-						/>
+						<ImageCache style={styles.frame} uri={item.photo} />
 					</View>
 				)}
 				keyExtractor={item => `${item.id}`}
