@@ -2,7 +2,11 @@ import * as React from "react";
 import { Image } from "react-native";
 import shorthash from "shorthash";
 //import * as FileSystem from 'expo-file-system';
-import { cacheDirectory, downloadAsync, getInfoAsync } from "expo-file-system";
+import {
+	documentDirectory,
+	downloadAsync,
+	getInfoAsync
+} from "expo-file-system";
 
 export default class CacheImage extends React.Component {
 	constructor(props) {
@@ -15,7 +19,7 @@ export default class CacheImage extends React.Component {
 	async componentDidMount() {
 		const { uri } = this.props;
 		const name = shorthash.unique(uri);
-		const path = `${cacheDirectory}${name}`;
+		const path = `${documentDirectory}${name}`;
 		const image = await getInfoAsync(path);
 		console.log(name);
 		if (image.exists) {
