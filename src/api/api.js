@@ -1,9 +1,10 @@
 import shorthash from "shorthash";
 import {
-	cacheDirectory,
+	documentDirectory,
 	downloadAsync,
 	getInfoAsync,
-	deleteAsync
+	deleteAsync,
+	makeDirectoryAsync
 } from "expo-file-system";
 
 const ID_EXPOSITOR = 6;
@@ -13,14 +14,14 @@ const LANGUAGES = ["ca", "es", "en", "fr"];
 const itemBuilder = async (lang, page) => {
 	const uri = `http://pessebrescastellar.com/expo2018/models/${ID_EXPOSITOR}/${lang}/${page}.png`;
 	const name = shorthash.unique(uri);
-	const path = `${cacheDirectory}${name}`;
-	//await deleteAsync(path)
+	const path = `${documentDirectory}expositor/${name}`;
+	//await deleteAsync(path);
 	const image = await getInfoAsync(path);
 
 	let item = {};
 
 	if (image.exists) {
-		//console.log("image from cache");
+		console.log("image from cache");
 		item = {
 			id: Date.now(),
 			page,
@@ -40,7 +41,7 @@ const itemBuilder = async (lang, page) => {
 				photo: newImage.uri
 			};
 		} else {
-			//console.log("bad image fetched");
+			console.log("bad image fetched");
 			//borro l'item del cacheDirectory
 			const badImage = await getInfoAsync(path);
 			badImage.exists && (await deleteAsync(path));
@@ -76,6 +77,8 @@ const expositorBuilder = async () => {
 };
 
 const api = async () => {
+	await deleteAsync(`${documentDirectory}expositor/`, { idempotent: true });
+	await makeDirectoryAsync(`${documentDirectory}expositor/`);
 	return {
 		expositor: await expositorBuilder()
 		/* {

@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
 class HomePage extends React.Component {
 	constructor() {
 		super();
+		this.frameSizes = { width: 550, height: 300, gapHeight: 40 };
 		this.state = {
 			expositor: { ca: [] },
 			languages: ["ca"],
@@ -50,17 +51,20 @@ class HomePage extends React.Component {
 				<ScrollView ref={ref => (this.refScrollView = ref)}>
 					<View style={styles.container}>
 						<FilmPerforations
-							NumFrames={
+							numFrames={
 								this.state.expositor[this.state.lang].length
 							}
+							frameSizes={this.frameSizes}
 						/>
 						<Frames
 							frames={this.state.expositor[this.state.lang]}
+							sizes={this.frameSizes}
 						/>
 						<FilmPerforations
-							NumFrames={
+							numFrames={
 								this.state.expositor[this.state.lang].length
 							}
+							frameSizes={this.frameSizes}
 						/>
 					</View>
 				</ScrollView>

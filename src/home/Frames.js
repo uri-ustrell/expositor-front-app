@@ -7,9 +7,7 @@ export default class Frames extends React.Component {
 		super(props);
 	}
 
-	componentDidUpdate() {
-		this.props.scrollDown && this.scrollToFrame(2);
-	}
+	componentDidUpdate() {}
 
 	scrollToFrame = nextFrame => {
 		this.flatListRef.scrollToIndex({
@@ -27,7 +25,13 @@ export default class Frames extends React.Component {
 				renderItem={({ item }) => (
 					<View style={styles.frameWrapper}>
 						<Image
-							style={styles.frame}
+							style={[
+								styles.frame,
+								{
+									width: this.props.sizes.width,
+									height: this.props.sizes.height
+								}
+							]}
 							source={{ uri: item.photo }}
 						/>
 					</View>
@@ -35,7 +39,7 @@ export default class Frames extends React.Component {
 				keyExtractor={item => `${item.id}`}
 				initialScrollIndex={0}
 				ItemSeparatorComponent={() => (
-					<View style={{ height: 40 }}></View>
+					<View style={{ height: this.props.sizes.gapHeight }}></View>
 				)}
 				ref={ref => {
 					this.flatListRef = ref;
@@ -49,8 +53,8 @@ const styles = StyleSheet.create({
 	frame: {
 		//width: 1180,
 		//height: 645,
-		width: 550,
-		height: 300,
+		//width: 550,
+		//height: 300,
 		resizeMode: "contain",
 		borderRadius: 10,
 		backgroundColor: "red"

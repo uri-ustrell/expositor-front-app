@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 
-const FilmPerforations = ({ NumFrames }) => {
-	const filmHoles = num => {
+const FilmPerforations = ({ numFrames, frameSizes }) => {
+	const filmHoles = (num, sizes) => {
+		const holesByFrame = Math.round((sizes.height + sizes.gapHeight) / 40);
 		let holes = [];
-		for (let hole = 0; hole < num * 18; hole++) {
+
+		for (let hole = 0; hole < num * holesByFrame; hole++) {
 			holes.push(<View style={styles.hole} key={`${hole}`}></View>);
 		}
 		return holes;
@@ -12,7 +14,7 @@ const FilmPerforations = ({ NumFrames }) => {
 
 	return (
 		<ScrollView>
-			<View style={styles.band}>{filmHoles(NumFrames)}</View>
+			<View style={styles.band}>{filmHoles(numFrames, frameSizes)}</View>
 		</ScrollView>
 	);
 };
