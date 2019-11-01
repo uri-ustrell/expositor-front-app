@@ -48,7 +48,10 @@ class HomePage extends React.Component {
 					this.setState(() => ({ userIsActive: active }));
 				}}
 			>
-				<ScrollView ref={ref => (this.refScrollView = ref)}>
+				<ScrollView
+					ref={ref => (this.refScrollView = ref)}
+					pagingEnabled={true}
+				>
 					<View style={styles.container}>
 						<FilmPerforations
 							numFrames={

@@ -38,6 +38,16 @@ export default class Frames extends React.Component {
 				)}
 				keyExtractor={item => `${item.id}`}
 				initialScrollIndex={0}
+				ListHeaderComponent={() => (
+					<View
+						style={{ height: this.props.sizes.gapHeight / 2 }}
+					></View>
+				)}
+				ListFooterComponent={() => (
+					<View
+						style={{ height: this.props.sizes.gapHeight / 2 }}
+					></View>
+				)}
 				ItemSeparatorComponent={() => (
 					<View style={{ height: this.props.sizes.gapHeight }}></View>
 				)}
@@ -56,8 +66,7 @@ const styles = StyleSheet.create({
 		//width: 550,
 		//height: 300,
 		resizeMode: "contain",
-		borderRadius: 10,
-		backgroundColor: "red"
+		borderRadius: 10
 	},
 	frameWrapper: {
 		flex: 1,
