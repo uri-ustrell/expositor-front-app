@@ -19,14 +19,19 @@ const styles = StyleSheet.create({
 class HomePage extends React.Component {
 	constructor() {
 		super();
-		this.Data = api();
-		this.languages = Object.keys(this.Data.expositor);
+		this.state = {
+			expositor: { ca: [] },
+			languages: ["ca"],
+			lang: "ca",
+			userIsActive: true
+		};
 	}
 
-	state = {
-		lang: "ca",
-		userIsActive: true
-	};
+	async componentDidMount() {
+		const data = await api();
+		this.setState(() => ({ expositor: data.expositor }));
+		this.setState(() => ({ languages: Object.keys(data.expositor) }));
+	}
 
 	scrollUp = () => {
 		this.refScrollView.scrollTo({ x: 0, y: 0, animated: true });
@@ -46,20 +51,22 @@ class HomePage extends React.Component {
 					<View style={styles.container}>
 						<FilmPerforations
 							NumFrames={
-								this.Data.expositor[this.state.lang].length
+								this.state.expositor[this.state.lang].length
 							}
 						/>
-						<Frames frames={this.Data.expositor[this.state.lang]} />
+						<Frames
+							frames={this.state.expositor[this.state.lang]}
+						/>
 						<FilmPerforations
 							NumFrames={
-								this.Data.expositor[this.state.lang].length
+								this.state.expositor[this.state.lang].length
 							}
 						/>
 					</View>
 				</ScrollView>
 				<ActionButtons
 					needButtons={this.state.userIsActive}
-					languages={this.languages}
+					languages={this.state.languages}
 					selectedLang={this.state.lang}
 					handleTopClick={this.scrollUp}
 					handleSelectLang={this.setLang}

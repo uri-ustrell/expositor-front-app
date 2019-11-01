@@ -18,7 +18,6 @@ export default class Frames extends React.Component {
 			viewOffset: 0,
 			viewPosition: 0.5
 		});
-		console.log("dragged");
 	};
 
 	render() {
@@ -27,7 +26,10 @@ export default class Frames extends React.Component {
 				data={this.props.frames}
 				renderItem={({ item }) => (
 					<View style={styles.frameWrapper}>
-						<ImageCache style={styles.frame} uri={item.photo} />
+						<Image
+							style={styles.frame}
+							source={{ uri: item.photo }}
+						/>
 					</View>
 				)}
 				keyExtractor={item => `${item.id}`}
@@ -50,7 +52,8 @@ const styles = StyleSheet.create({
 		width: 550,
 		height: 300,
 		resizeMode: "contain",
-		borderRadius: 10
+		borderRadius: 10,
+		backgroundColor: "red"
 	},
 	frameWrapper: {
 		flex: 1,
