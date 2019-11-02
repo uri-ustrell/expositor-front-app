@@ -40,44 +40,54 @@ class HomePage extends React.Component {
 
 	setLang = langSelected => this.setState(() => ({ lang: langSelected }));
 
+	goToInitialPage = () => {
+		this.scrollUp();
+		this.setLang("ca");
+	};
+
 	render() {
 		return (
 			<UserInactivity
-				timeForInactivity={5000}
-				onAction={active => {
-					this.setState(() => ({ userIsActive: active }));
-				}}
+				timeForInactivity={45000}
+				onAction={active => !active && this.goToInitialPage()}
 			>
-				<ScrollView
-					ref={ref => (this.refScrollView = ref)}
-					pagingEnabled={true}
+				<UserInactivity
+					timeForInactivity={5000}
+					onAction={active => {
+						this.setState(() => ({ userIsActive: active }));
+					}}
 				>
-					<View style={styles.container}>
-						<FilmPerforations
-							numFrames={
-								this.state.expositor[this.state.lang].length
-							}
-							frameSizes={this.frameSizes}
-						/>
-						<Frames
-							frames={this.state.expositor[this.state.lang]}
-							sizes={this.frameSizes}
-						/>
-						<FilmPerforations
-							numFrames={
-								this.state.expositor[this.state.lang].length
-							}
-							frameSizes={this.frameSizes}
-						/>
-					</View>
-				</ScrollView>
-				<ActionButtons
-					needButtons={this.state.userIsActive}
-					languages={this.state.languages}
-					selectedLang={this.state.lang}
-					handleTopClick={this.scrollUp}
-					handleSelectLang={this.setLang}
-				/>
+					<ScrollView
+						ref={ref => (this.refScrollView = ref)}
+						pagingEnabled={true}
+					>
+						<View style={styles.container}>
+							<FilmPerforations
+								numFrames={
+									this.state.expositor[this.state.lang].length
+								}
+								frameSizes={this.frameSizes}
+							/>
+							<Frames
+								frames={this.state.expositor[this.state.lang]}
+								sizes={this.frameSizes}
+							/>
+							<FilmPerforations
+								numFrames={
+									this.state.expositor[this.state.lang].length
+								}
+								frameSizes={this.frameSizes}
+							/>
+						</View>
+					</ScrollView>
+					<ActionButtons
+						needButtons={this.state.userIsActive}
+						languages={this.state.languages}
+						selectedLang={this.state.lang}
+						handleTopClick={this.scrollUp}
+						handleSelectLang={this.setLang}
+					/>
+				</UserInactivity>
 			</UserInactivity>
 		);
 	}
