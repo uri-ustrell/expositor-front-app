@@ -58,13 +58,16 @@ export default class Actions extends React.Component {
 					style={this.buttonStyles}
 					buttonColor="rgb(174, 174, 174)"
 					position="left"
+					offsetX={-30}
 					key="language button"
 					buttonText={this.props.selectedLang}
+					fixNativeFeedbackRadius={true}
 				>
 					{this.props.languages.map(lang => (
 						<ActionButton.Item
 							onPress={() => this.props.handleSelectLang(lang)}
 							key={lang}
+							fixNativeFeedbackRadius={true}
 						>
 							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
 						</ActionButton.Item>
@@ -78,6 +81,7 @@ export default class Actions extends React.Component {
 						<Icon name="up" style={styles.actionButtonIcon} />
 					)}
 					key="top button"
+					fixNativeFeedbackRadius={true}
 				></ActionsAnimated>
 			</>
 		);

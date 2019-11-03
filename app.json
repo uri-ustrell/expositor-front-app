@@ -22,6 +22,9 @@
 		},
 		"android": {
 			"package": "com.pessebrescastellar.expositorapp"
-		}
+		},
+		"androidNavigationBar": {
+			"visible": false
+		  }
 	}
 }
