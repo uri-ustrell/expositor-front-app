@@ -68,6 +68,7 @@ export default class Actions extends React.Component {
 							onPress={() => this.props.handleSelectLang(lang)}
 							key={lang}
 							fixNativeFeedbackRadius={true}
+							hideLabelShadow={true}
 						>
 							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
 						</ActionButton.Item>
