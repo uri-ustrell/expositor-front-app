@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 class HomePage extends React.Component {
 	constructor() {
 		super();
-		this.frameSizes = { width: 1180, height: 645, gapHeight: 40 };
+		this.frameSizes = { width: 1180, height: 760, gapHeight: 40 };
 		this.state = {
 			expositor: { ca: [] },
 			languages: ["ca"],
