@@ -69,6 +69,7 @@ export default class Actions extends React.Component {
 							key={lang}
 							fixNativeFeedbackRadius={true}
 							hideLabelShadow={true}
+							shadowStyle={{ opacity: 0 }}
 						>
 							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
 						</ActionButton.Item>

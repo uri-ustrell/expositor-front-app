@@ -7,7 +7,7 @@ import {
 	makeDirectoryAsync
 } from "expo-file-system";
 
-const ID_EXPOSITOR = 14;
+const ID_EXPOSITOR = 5;
 const MAX_ITEMS = 5;
 const LANGUAGES = ["ca", "es", "en", "fr"];
 
