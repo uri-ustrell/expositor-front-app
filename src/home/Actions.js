@@ -63,7 +63,7 @@ export default class Actions extends React.Component {
 					key="language button"
 					buttonText={this.props.selectedLang}
 					fixNativeFeedbackRadius={true}
-					size={65}
+					size={70}
 				>
 					{this.props.languages.map(lang => (
 						<ActionButton.Item
