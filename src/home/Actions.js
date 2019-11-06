@@ -7,13 +7,15 @@ const ActionsAnimated = Animated.createAnimatedComponent(ActionButton);
 
 const styles = StyleSheet.create({
 	actionButtonIcon: {
-		fontSize: 20,
+		fontSize: 22,
 		height: 22,
-		color: "white"
+		color: "#fff",
+		fontWeight: "bold"
 	},
 	buttonOptionsTxt: {
-		fontSize: 18,
-		color: "#fff"
+		fontSize: 20,
+		color: "#fff",
+		fontWeight: "bold"
 	}
 });
 
@@ -46,7 +48,7 @@ export default class Actions extends React.Component {
 			}).start();
 		} else {
 			Animated.timing(this.state.animatedOpacity, {
-				toValue: 0.85,
+				toValue: 1,
 				duration: 300
 			}).start();
 		}
@@ -57,20 +59,19 @@ export default class Actions extends React.Component {
 			<>
 				<ActionsAnimated
 					style={this.buttonStyles}
-					buttonColor="rgb(174, 174, 174)"
+					buttonColor="rgba(255,80,81,1)"
 					position="left"
-					offsetX={-30}
 					key="language button"
 					buttonText={this.props.selectedLang}
-					fixNativeFeedbackRadius={true}
-					size={70}
+					size={80}
+					useNativeFeedback={false}
 				>
 					{this.props.languages.map(lang => (
 						<ActionButton.Item
 							onPress={() => this.props.handleSelectLang(lang)}
 							key={lang}
-							fixNativeFeedbackRadius={true}
-							hideLabelShadow={true}
+							buttonColor="rgba(242,112,112,1)"
+							useNativeFeedback={false}
 						>
 							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
 						</ActionButton.Item>
@@ -78,14 +79,14 @@ export default class Actions extends React.Component {
 				</ActionsAnimated>
 				<ActionsAnimated
 					style={this.buttonStyles}
-					buttonColor="rgb(174, 174, 174)"
+					buttonColor="rgba(255,80,81,1)"
 					onPress={() => this.props.handleTopClick()}
 					renderIcon={() => (
 						<Icon name="up" style={styles.actionButtonIcon} />
 					)}
 					key="top button"
-					fixNativeFeedbackRadius={true}
-					size={65}
+					size={80}
+					useNativeFeedback={false}
 				></ActionsAnimated>
 			</>
 		);

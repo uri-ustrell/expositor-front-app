@@ -1,11 +1,5 @@
 import shorthash from "shorthash";
-import {
-	documentDirectory,
-	downloadAsync,
-	getInfoAsync,
-	deleteAsync,
-	makeDirectoryAsync
-} from "expo-file-system";
+import * as FileSystem from "expo-file-system";
 
 const ID_EXPOSITOR = 5;
 const MAX_ITEMS = 5;
@@ -14,13 +8,13 @@ const LANGUAGES = ["ca", "es", "en", "fr"];
 const itemBuilder = async (lang, page) => {
 	const uri = `http://pessebrescastellar.com/expo2018/models/${ID_EXPOSITOR}/${lang}/${page}.png`;
 	const name = shorthash.unique(uri);
-	const path = `${documentDirectory}expositor/${name}`;
-	//await deleteAsync(path);
-	const image = await getInfoAsync(path);
+	const path = `${FileSystem.cacheDirectory}${name}`;
+	await FileSystem.deleteAsync(path, { idempotent: true });
+	//const image = await FileSystem.getInfoAsync(path);
 
 	let item = {};
 
-	if (image.exists) {
+	/* if (image.exists) {
 		console.log("image from cache");
 		item = {
 			id: Date.now(),
@@ -28,25 +22,24 @@ const itemBuilder = async (lang, page) => {
 			type: "png",
 			photo: image.uri
 		};
+	} else { */
+	const newImage = await FileSystem.downloadAsync(uri, path);
+	//console.log("new image fetched");
+	if (newImage.headers["Content-Type"] === "image/png") {
+		//console.log("good image fetched");
+		//genero un nou item
+		item = {
+			id: Date.now(),
+			page,
+			type: "png",
+			photo: newImage.uri
+		};
 	} else {
-		const newImage = await downloadAsync(uri, path);
-		//console.log("new image fetched");
-		if (newImage.headers["Content-Type"] === "image/png") {
-			console.log("good image fetched");
-			//genero un nou item
-			item = {
-				id: Date.now(),
-				page,
-				type: "png",
-				photo: newImage.uri
-			};
-		} else {
-			console.log("bad image fetched");
-			//borro l'item del cacheDirectory
-			const badImage = await getInfoAsync(path);
-			badImage.exists && (await deleteAsync(path));
-		}
+		//console.log("bad image fetched");
+		//borro l'item del FileSystem.cacheDirectory
+		await FileSystem.deleteAsync(path, { idempotent: true });
 	}
+	/* } */
 
 	return item;
 };
@@ -77,8 +70,17 @@ const expositorBuilder = async () => {
 };
 
 const api = async () => {
-	await deleteAsync(`${documentDirectory}expositor/`, { idempotent: true });
-	await makeDirectoryAsync(`${documentDirectory}expositor/`);
+/* 	await FileSystem.deleteAsync(`${FileSystem.cacheDirectory}expositor/`, {
+		idempotent: true
+	});
+
+	await FileSystem.makeDirectoryAsync(
+		`${FileSystem.cacheDirectory}expositor/`,
+		{
+			intermediates: true
+		}
+	); */
+
 	return {
 		expositor: await expositorBuilder()
 		/* {
