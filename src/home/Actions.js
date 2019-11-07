@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
 	buttonOptionsTxt: {
 		fontSize: 20,
 		color: "#fff",
-		fontWeight: "bold"
+		fontWeight: "bold",
+		marginTop: 20
 	}
 });
 
@@ -57,26 +58,23 @@ export default class Actions extends React.Component {
 	render() {
 		return (
 			<>
-				<ActionsAnimated
-					style={this.buttonStyles}
-					buttonColor="rgba(255,80,81,1)"
-					position="left"
-					key="language button"
-					buttonText={this.props.selectedLang}
-					size={80}
-					useNativeFeedback={false}
-				>
-					{this.props.languages.map(lang => (
-						<ActionButton.Item
-							onPress={() => this.props.handleSelectLang(lang)}
-							key={lang}
-							buttonColor="rgba(242,112,112,1)"
-							useNativeFeedback={false}
-						>
-							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
-						</ActionButton.Item>
-					))}
-				</ActionsAnimated>
+				{this.props.languages.map((lang, index) => (
+					<ActionsAnimated
+						style={[this.buttonStyles, styles.buttonOptionsTxt]}
+						buttonColor={
+							lang === this.props.selectedLang
+								? "rgba(255,80,81,1)"
+								: "rgba(242,112,112,1)"
+						}
+						position="left"
+						buttonText={lang}
+						offsetY={index * 120}
+						size={80}
+						useNativeFeedback={false}
+						onPress={() => this.props.handleSelectLang(lang)}
+						key={lang}
+					></ActionsAnimated>
+				))}
 				<ActionsAnimated
 					style={this.buttonStyles}
 					buttonColor="rgba(255,80,81,1)"
