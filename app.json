@@ -1,10 +1,10 @@
 {
 	"expo": {
-		"name": "expositor",
-		"slug": "expositor",
+		"name": "expositor-pessebrescastellar05",
+		"slug": "expositor-pessebrescastellar05",
 		"privacy": "unlisted",
 		"sdkVersion": "35.0.0",
-		"platforms": ["android", "web"],
+		"platforms": "android",
 		"version": "1.0.0",
 		"orientation": "landscape",
 		"icon": "./assets/icon.png",
@@ -21,10 +21,10 @@
 			"supportsTablet": true
 		},
 		"android": {
-			"package": "com.pessebrescastellar.expositorapp"
+			"package": "com.pessebrescastellar05.expositorapp"
 		},
 		"androidNavigationBar": {
 			"visible": false
-		  }
+		}
 	}
 }
