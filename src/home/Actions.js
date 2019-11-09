@@ -60,19 +60,19 @@ export default class Actions extends React.Component {
 			<>
 				{this.props.languages.map((lang, index) => (
 					<ActionsAnimated
+						position="left"
+						size={80}
+						useNativeFeedback={false}
+						key={lang}
+						onPress={() => this.props.handleSelectLang(lang)}
 						style={[this.buttonStyles, styles.buttonOptionsTxt]}
 						buttonColor={
 							lang === this.props.selectedLang
 								? "rgba(255,80,81,1)"
 								: "rgba(242,112,112,1)"
 						}
-						position="left"
-						buttonText={lang}
-						offsetY={index * 120}
-						size={80}
-						useNativeFeedback={false}
-						onPress={() => this.props.handleSelectLang(lang)}
-						key={lang}
+						offsetY={50 + index * 80}
+						buttonText={`${50 + index * 80}`}
 					></ActionsAnimated>
 				))}
 				<ActionsAnimated

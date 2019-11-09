@@ -48,7 +48,7 @@ class HomePage extends React.Component {
 	render() {
 		return (
 			<UserInactivity
-				timeForInactivity={45000}
+				timeForInactivity={60000}
 				onAction={active => !active && this.goToInitialPage()}
 			>
 				<UserInactivity
