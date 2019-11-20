@@ -86,6 +86,7 @@ class HomePage extends React.Component {
 						selectedLang={this.state.lang}
 						handleTopClick={this.scrollUp}
 						handleSelectLang={this.setLang}
+						style={{ height: 500 }}
 					/>
 				</UserInactivity>
 			</UserInactivity>

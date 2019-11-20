@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, Animated } from "react-native";
+import { StyleSheet, View, Animated } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/AntDesign";
 
@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: "#fff",
 		fontWeight: "bold",
-		marginTop: 20
+		marginTop: 20,
+		paddingTop: 20
 	}
 });
 
@@ -58,7 +59,7 @@ export default class Actions extends React.Component {
 	render() {
 		return (
 			<>
-				{this.props.languages.map((lang, index) => (
+				{this.props.languages.map((lang, index, arr) => (
 					<ActionsAnimated
 						position="left"
 						size={80}
@@ -71,8 +72,8 @@ export default class Actions extends React.Component {
 								? "rgba(255,80,81,1)"
 								: "rgba(242,112,112,1)"
 						}
-						offsetY={50 + index * 80}
-						buttonText={`${50 + index * 80}`}
+						offsetY={30 + index * 80}
+						buttonText={lang}
 					></ActionsAnimated>
 				))}
 				<ActionsAnimated
