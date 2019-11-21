@@ -60,9 +60,11 @@ export default class Actions extends React.Component {
 				{this.props.languages.map((lang, index) => (
 					<View
 						style={{
+							height: 100,
+							width: 100,
 							marginTop: 20,
 							position: "absolute",
-							top: 300,
+							top: 370 + index * (80 + 20)
 						}}
 						key={index}
 					>
@@ -78,7 +80,7 @@ export default class Actions extends React.Component {
 									? "rgba(255,80,81,1)"
 									: "rgba(242,112,112,1)"
 							}
-							offsetY={30 + index * (80 + 20)}
+							/* offsetY={30 + index * (80 + 20)} */
 							buttonText={lang}
 						></ActionsAnimated>
 					</View>
