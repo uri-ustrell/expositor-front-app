@@ -62,7 +62,7 @@ export default class Actions extends React.Component {
 						style={{
 							marginTop: 20,
 							position: "absolute",
-							bottom: 30,
+							top: 300,
 						}}
 						key={index}
 					>
