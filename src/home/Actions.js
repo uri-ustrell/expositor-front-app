@@ -64,7 +64,7 @@ export default class Actions extends React.Component {
 							width: 100,
 							marginTop: 20,
 							position: "absolute",
-							top: 370 + index * (80 + 20)
+							top: 375 + index * (80 + 20)
 						}}
 						key={index}
 					>
