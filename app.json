@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "expositor-front-app",
+    "slug": "expositor-front-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "expositor-front-app"
+}
