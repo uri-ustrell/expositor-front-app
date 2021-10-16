@@ -1,27 +1,49 @@
 import * as React from "react";
-import { StyleSheet, View, FlatList, Image } from "react-native";
-import ImageCache from "./CacheImage";
+import { StyleSheet, View, VirtualizedList, Image } from "react-native";
 
 export default class Frames extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = { dragOffset: 0 }
 	}
 
-	componentDidUpdate() {}
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.scrollUp) {
+			this.scrollToStart();
+			this.props.disableScrollUp();
+		}
 
-	scrollToFrame = nextFrame => {
-		this.flatListRef.scrollToIndex({
+		if (prevState !== this.state.dragOffset) {
+			this.scrollToFrame();
+		}
+	}
+
+	scrollToFrame = () => {
+		console.log("this.dragOffset -->", this.state.dragOffset);
+
+		this.ListRef.scrollToIndex({
 			animated: true,
-			index: nextFrame,
+			index: this.state.dragOffset > 2 && 0,
 			viewOffset: 0,
 			viewPosition: 0.5
 		});
 	};
 
+	scrollToStart = () => {
+		this.ListRef.scrollToIndex({
+			index: 0,
+			viewOffset: 0,
+			viewPosition: 0.5,
+			animated: true
+		});
+	}
+
 	render() {
 		return (
-			<FlatList
+			<VirtualizedList
 				data={this.props.frames}
+				getItem={(data, index) => (data[index])}
+				getItemCount={(data) => data.length}
 				renderItem={({ item }) => (
 					<View style={styles.frameWrapper}>
 						<Image
@@ -36,23 +58,16 @@ export default class Frames extends React.Component {
 						/>
 					</View>
 				)}
+				horizontal
+				onMomentumScrollEnd={(e) => {
+					const { contentSize: { width }, contentOffset: { x } } = e.nativeEvent
+					this.setState(() => ({ dragOffset: Math.floor(width / x) }))
+				}}
+				onScrollToIndexFailed={console.log}
 				keyExtractor={item => `${item.id}`}
 				initialScrollIndex={0}
-				ListHeaderComponent={() => (
-					<View
-						style={{ height: this.props.sizes.gapHeight / 2 }}
-					></View>
-				)}
-				ListFooterComponent={() => (
-					<View
-						style={{ height: this.props.sizes.gapHeight / 2 }}
-					></View>
-				)}
-				ItemSeparatorComponent={() => (
-					<View style={{ height: this.props.sizes.gapHeight }}></View>
-				)}
 				ref={ref => {
-					this.flatListRef = ref;
+					this.ListRef = ref;
 				}}
 			/>
 		);
@@ -66,7 +81,6 @@ const styles = StyleSheet.create({
 		//width: 550,
 		//height: 300,
 		resizeMode: "contain",
-		borderRadius: 10
 	},
 	frameWrapper: {
 		flex: 1,

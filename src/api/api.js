@@ -1,7 +1,7 @@
 import shorthash from "shorthash";
 import * as FileSystem from "expo-file-system";
 
-const ID_EXPOSITOR = 5;
+const ID_EXPOSITOR = 6;
 const MAX_ITEMS = 5;
 const LANGUAGES = ["ca", "es", "en", "fr"];
 
@@ -70,16 +70,16 @@ const expositorBuilder = async () => {
 };
 
 const api = async () => {
-/* 	await FileSystem.deleteAsync(`${FileSystem.cacheDirectory}expositor/`, {
-		idempotent: true
-	});
-
-	await FileSystem.makeDirectoryAsync(
-		`${FileSystem.cacheDirectory}expositor/`,
-		{
-			intermediates: true
-		}
-	); */
+	/* 	await FileSystem.deleteAsync(`${FileSystem.cacheDirectory}expositor/`, {
+			idempotent: true
+		});
+	
+		await FileSystem.makeDirectoryAsync(
+			`${FileSystem.cacheDirectory}expositor/`,
+			{
+				intermediates: true
+			}
+		); */
 
 	return {
 		expositor: await expositorBuilder()

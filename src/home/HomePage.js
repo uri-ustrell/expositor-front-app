@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import UserInactivity from "react-native-user-inactivity";
 import Frames from "./Frames";
 import api from "../api/api";
@@ -23,7 +23,8 @@ class HomePage extends React.Component {
 			expositor: { ca: [] },
 			languages: ["ca"],
 			lang: "ca",
-			userIsActive: true
+			userIsActive: true,
+			scrollUp: false,
 		};
 	}
 
@@ -33,14 +34,13 @@ class HomePage extends React.Component {
 		this.setState(() => ({ languages: Object.keys(data.expositor) }));
 	}
 
-	scrollUp = () => {
-		this.refScrollView.scrollTo({ x: 0, y: 0, animated: true });
-	};
-
 	setLang = langSelected => this.setState(() => ({ lang: langSelected }));
 
+	setScrollUp = () => this.setState(() => ({ scrollUp: true }));
+	disableScrollUp = () => this.setState(() => ({ scrollUp: false }));
+
 	goToInitialPage = () => {
-		this.scrollUp();
+		this.setScrollUp();
 		this.setLang("ca");
 	};
 
@@ -56,22 +56,19 @@ class HomePage extends React.Component {
 						this.setState(() => ({ userIsActive: active }));
 					}}
 				>
-					<ScrollView
-						ref={ref => (this.refScrollView = ref)}
-						pagingEnabled={true}
-					>
-						<View style={styles.container}>
-							<Frames
-								frames={this.state.expositor[this.state.lang]}
-								sizes={this.frameSizes}
-							/>
-						</View>
-					</ScrollView>
+					<View style={styles.container}>
+						<Frames
+							frames={this.state.expositor[this.state.lang]}
+							sizes={this.frameSizes}
+							scrollUp={this.state.scrollUp}
+							disableScrollUp={this.disableScrollUp}
+						/>
+					</View>
 					<ActionButtons
 						needButtons={this.state.userIsActive}
 						languages={this.state.languages}
 						selectedLang={this.state.lang}
-						handleTopClick={this.scrollUp}
+						handleTopClick={this.setScrollUp}
 						handleSelectLang={this.setLang}
 					/>
 				</UserInactivity>
