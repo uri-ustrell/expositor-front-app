@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import UserInactivity from "react-native-user-inactivity";
 import Frames from "./Frames";
 import api from "../api/api";
