@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, Animated } from "react-native";
+import { StyleSheet, Animated } from "react-native";
 import ActionButton from "react-native-action-button";
 import Icon from "react-native-vector-icons/AntDesign";
 
@@ -59,32 +59,24 @@ export default class Actions extends React.Component {
 	render() {
 		return (
 			<>
-				<ActionsAnimated
-					style={this.buttonStyles}
-					buttonColor="rgba(255,80,81,1)"
-					position="left"
-					key="language button"
-					buttonText={this.props.selectedLang}
-					size={80}
-					useNativeFeedback={false}
-				>
-					{this.props.languages.map(lang => (
-						<ActionButton.Item
-							onPress={() => this.props.handleSelectLang(lang)}
-							key={lang}
-							buttonColor="rgba(242,112,112,1)"
-							useNativeFeedback={false}
-						>
-							<Text style={styles.buttonOptionsTxt}>{lang}</Text>
-						</ActionButton.Item>
-					))}
-				</ActionsAnimated>
+				{this.props.languages.map((lang, index) => (
+					<ActionsAnimated
+						style={{ ...this.buttonStyles, marginBottom: index ? (100 * index) : 0 }}
+						buttonColor={lang === this.props.selectedLang ? "rgba(255,80,81,1)" : "rgba(242,112,112,1)"}
+						position="left"
+						key={lang}
+						buttonText={lang}
+						size={80}
+						useNativeFeedback={false}
+						onPress={() => this.props.handleSelectLang(lang)}
+					></ActionsAnimated>
+				))}
 				<ActionsAnimated
 					style={this.buttonStyles}
 					buttonColor="rgba(255,80,81,1)"
 					onPress={() => this.props.handleTopClick()}
 					renderIcon={() => (
-						<Icon name="up" style={styles.actionButtonIcon} />
+						<Icon name="left" style={styles.actionButtonIcon} />
 					)}
 					key="top button"
 					size={80}
