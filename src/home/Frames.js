@@ -1,10 +1,10 @@
 import * as React from "react";
-import { StyleSheet, View, VirtualizedList, Image } from "react-native";
+import { StyleSheet, View, ScrollView, Image } from "react-native";
+// import { ScrollView } from "react-native-gesture-handler";
 
 export default class Frames extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { dragOffset: 0 }
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -12,39 +12,22 @@ export default class Frames extends React.Component {
 			this.scrollToStart();
 			this.props.disableScrollUp();
 		}
-
-		if (prevState !== this.state.dragOffset) {
-			this.scrollToFrame();
-		}
 	}
 
-	scrollToFrame = () => {
-		console.log("this.dragOffset -->", this.state.dragOffset);
-
-		this.ListRef.scrollToIndex({
-			animated: true,
-			index: this.state.dragOffset > 2 && 0,
-			viewOffset: 0,
-			viewPosition: 0.5
-		});
-	};
-
 	scrollToStart = () => {
-		this.ListRef.scrollToIndex({
-			index: 0,
-			viewOffset: 0,
-			viewPosition: 0.5,
-			animated: true
-		});
+		this.ListRef.scrollTo({ x: 0, y: 0, animated: true });
 	}
 
 	render() {
 		return (
-			<VirtualizedList
-				data={this.props.frames}
-				getItem={(data, index) => (data[index])}
-				getItemCount={(data) => data.length}
-				renderItem={({ item }) => (
+			<ScrollView
+				horizontal
+				pagingEnabled
+				ref={ref => {
+					this.ListRef = ref;
+				}}
+			>
+				{this.props.frames.map((item) =>
 					<View style={styles.frameWrapper}>
 						<Image
 							style={[
@@ -58,18 +41,7 @@ export default class Frames extends React.Component {
 						/>
 					</View>
 				)}
-				horizontal
-				onMomentumScrollEnd={(e) => {
-					const { contentSize: { width }, contentOffset: { x } } = e.nativeEvent
-					this.setState(() => ({ dragOffset: Math.floor(width / x) }))
-				}}
-				onScrollToIndexFailed={console.log}
-				keyExtractor={item => `${item.id}`}
-				initialScrollIndex={0}
-				ref={ref => {
-					this.ListRef = ref;
-				}}
-			/>
+			</ScrollView>
 		);
 	}
 }
