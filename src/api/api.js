@@ -17,7 +17,7 @@ const itemBuilder = async (lang, page) => {
 
 	if (newImage.headers["Content-Type"] === "image/png") {
 		item = {
-			id: Date.now(),
+			id: `${page}-${Date.now()}`,
 			page,
 			type: "png",
 			photo: newImage.uri

@@ -26,9 +26,13 @@ export default class Frames extends React.Component {
 				ref={ref => {
 					this.ListRef = ref;
 				}}
+				style={styles.listWrapper}
 			>
 				{this.props.frames.map((item) =>
-					<View style={styles.frameWrapper}>
+					<View
+						style={styles.frameWrapper}
+						key={item.id}
+					>
 						<Image
 							style={[
 								styles.frame,
@@ -48,15 +52,14 @@ export default class Frames extends React.Component {
 
 const styles = StyleSheet.create({
 	frame: {
-		//width: 1180,
-		//height: 645,
-		//width: 550,
-		//height: 300,
 		resizeMode: "contain",
 	},
 	frameWrapper: {
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center"
+	},
+	listWrapper: {
+		flex: 1
 	}
 });
