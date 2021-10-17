@@ -1,28 +1,33 @@
 import * as React from "react";
-import { StyleSheet, View, FlatList, Image } from "react-native";
-import ImageCache from "./CacheImage";
+import { StyleSheet, View, ScrollView, Image } from "react-native";
+// import { ScrollView } from "react-native-gesture-handler";
 
 export default class Frames extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
-	componentDidUpdate() {}
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.scrollUp) {
+			this.scrollToStart();
+			this.props.disableScrollUp();
+		}
+	}
 
-	scrollToFrame = nextFrame => {
-		this.flatListRef.scrollToIndex({
-			animated: true,
-			index: nextFrame,
-			viewOffset: 0,
-			viewPosition: 0.5
-		});
-	};
+	scrollToStart = () => {
+		this.ListRef.scrollTo({ x: 0, y: 0, animated: true });
+	}
 
 	render() {
 		return (
-			<FlatList
-				data={this.props.frames}
-				renderItem={({ item }) => (
+			<ScrollView
+				horizontal
+				pagingEnabled
+				ref={ref => {
+					this.ListRef = ref;
+				}}
+			>
+				{this.props.frames.map((item) =>
 					<View style={styles.frameWrapper}>
 						<Image
 							style={[
@@ -36,25 +41,7 @@ export default class Frames extends React.Component {
 						/>
 					</View>
 				)}
-				keyExtractor={item => `${item.id}`}
-				initialScrollIndex={0}
-				ListHeaderComponent={() => (
-					<View
-						style={{ height: this.props.sizes.gapHeight / 2 }}
-					></View>
-				)}
-				ListFooterComponent={() => (
-					<View
-						style={{ height: this.props.sizes.gapHeight / 2 }}
-					></View>
-				)}
-				ItemSeparatorComponent={() => (
-					<View style={{ height: this.props.sizes.gapHeight }}></View>
-				)}
-				ref={ref => {
-					this.flatListRef = ref;
-				}}
-			/>
+			</ScrollView>
 		);
 	}
 }
@@ -66,7 +53,6 @@ const styles = StyleSheet.create({
 		//width: 550,
 		//height: 300,
 		resizeMode: "contain",
-		borderRadius: 10
 	},
 	frameWrapper: {
 		flex: 1,
