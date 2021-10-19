@@ -4,6 +4,7 @@ import UserInactivity from "react-native-user-inactivity";
 import Frames from "./Frames";
 import api from "../api/api";
 import ActionButtons from "./Actions";
+import { FRAME_SIZES } from '../context/constants';
 
 const styles = StyleSheet.create({
 	container: {
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
 class HomePage extends React.Component {
 	constructor() {
 		super();
-		this.frameSizes = { width: 1180, height: 760, gapHeight: 40 };
+		this.frameSizes = FRAME_SIZES;
 		this.state = {
 			expositor: { ca: [] },
 			languages: ["ca"],
