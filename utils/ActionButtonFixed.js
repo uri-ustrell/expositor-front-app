@@ -1,3 +1,5 @@
+// la Dependencia està anticuada i dona errors i warnings amb les noves versións de React Native. 
+// He copiat això per tornar-ho a planxar al node_modules si faig un yarn install.
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {

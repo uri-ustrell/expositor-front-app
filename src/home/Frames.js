@@ -1,10 +1,10 @@
 import * as React from "react";
 import { StyleSheet, View, ScrollView, Image } from "react-native";
-// import { ScrollView } from "react-native-gesture-handler";
 
 export default class Frames extends React.Component {
 	constructor(props) {
 		super(props);
+		this.props = props;
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -52,14 +52,14 @@ export default class Frames extends React.Component {
 
 const styles = StyleSheet.create({
 	frame: {
-		resizeMode: "contain",
+		resizeMode: 'contain',
 	},
 	frameWrapper: {
 		flex: 1,
 		alignItems: "center",
-		justifyContent: "center"
+		justifyContent: "center",
 	},
 	listWrapper: {
-		flex: 1
+		flex: 1,
 	}
 });

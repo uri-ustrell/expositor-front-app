@@ -1,9 +1,6 @@
 import shorthash from "shorthash";
 import * as FileSystem from "expo-file-system";
-
-const ID_EXPOSITOR = 6;
-const MAX_ITEMS = 5;
-const LANGUAGES = ["ca", "es", "en", "fr"];
+import { ID_EXPOSITOR, MAX_ITEMS, LANGUAGES } from '../context/constants'
 
 const itemBuilder = async (lang, page) => {
 	const uri = `http://pessebrescastellar.com/expo2018/models/${ID_EXPOSITOR}/${lang}/${page}.png`;
