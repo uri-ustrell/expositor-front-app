@@ -1,29 +1,14 @@
-import shorthash from "shorthash";
-import * as FileSystem from "expo-file-system";
-import { ID_EXPOSITOR, MAX_ITEMS, LANGUAGES } from '../context/constants'
+import { ID_EXPOSITOR, MAX_ITEMS, LANGUAGES } from '../context/constants';
 
 const itemBuilder = async (lang, page) => {
-	const uri = `http://pessebrescastellar.com/expo2018/models/${ID_EXPOSITOR}/${lang}/${page}.png`;
-	const name = shorthash.unique(uri);
-	const path = `${FileSystem.cacheDirectory}${name}`;
-	await FileSystem.deleteAsync(path, { idempotent: true });
+	const uri = `http://www.pessebrescastellar.com/expo2018/models/${ID_EXPOSITOR}/${lang}/${page}.png`;
 
-	let item = {};
-
-	const newImage = await FileSystem.downloadAsync(uri, path);
-
-	if (newImage.headers["Content-Type"] === "image/png") {
-		item = {
-			id: `${page}-${Date.now()}`,
-			page,
-			type: "png",
-			photo: newImage.uri
-		};
-	} else {
-		await FileSystem.deleteAsync(path, { idempotent: true });
+	return  {
+		id: `${page}-${Date.now()}`,
+		page,
+		type: "png",
+		photo: uri
 	}
-
-	return item;
 };
 
 const langBuilder = async lang => {
