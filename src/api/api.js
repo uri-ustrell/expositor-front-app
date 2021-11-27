@@ -5,25 +5,32 @@ import { ID_EXPOSITOR, MAX_ITEMS, LANGUAGES } from '../context/constants'
 const itemBuilder = async (lang, page) => {
 	const uri = `http://pessebrescastellar.com/expo2018/models/${ID_EXPOSITOR}/${lang}/${page}.png`;
 	const name = shorthash.unique(uri);
-	const path = `${FileSystem.cacheDirectory}${name}`;
-	await FileSystem.deleteAsync(path, { idempotent: true });
+	const path = `${FileSystem.documentDirectory}${name}`;
+	
+	const image = await FileSystem.getInfoAsync(path);
 
-	let item = {};
-
-	const newImage = await FileSystem.downloadAsync(uri, path);
-
-	if (newImage.headers["Content-Type"] === "image/png") {
-		item = {
+	if (!image.exists) {
+		const newImage = await FileSystem.downloadAsync(uri, path);
+		
+		if (newImage.headers["Content-Type"] === "image/png") {
+			
+			return {
+				id: `${page}-${Date.now()}`,
+				page,
+				type: "png",
+				photo: newImage.uri
+			};
+		} else {
+			await FileSystem.deleteAsync(path, { idempotent: true });
+		}
+	}
+		
+	return {
 			id: `${page}-${Date.now()}`,
 			page,
 			type: "png",
-			photo: newImage.uri
+			photo: image.uri
 		};
-	} else {
-		await FileSystem.deleteAsync(path, { idempotent: true });
-	}
-
-	return item;
 };
 
 const langBuilder = async lang => {
