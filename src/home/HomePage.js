@@ -17,22 +17,15 @@ const styles = StyleSheet.create({
 });
 
 class HomePage extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.frameSizes = FRAME_SIZES;
 		this.state = {
-			expositor: { ca: [] },
-			languages: ["ca"],
 			lang: "ca",
 			userIsActive: true,
 			scrollUp: false,
 		};
-	}
-
-	async componentDidMount() {
-		const data = await api();
-		this.setState(() => ({ expositor: data.expositor }));
-		this.setState(() => ({ languages: Object.keys(data.expositor) }));
+		this.expositor = props.expositor || { ca: [] };
 	}
 
 	setLang = langSelected => this.setState(() => ({ lang: langSelected }));
@@ -59,7 +52,7 @@ class HomePage extends React.Component {
 				>
 					<View style={styles.container}>
 						<Frames
-							frames={this.state.expositor[this.state.lang]}
+							frames={this.expositor[this.state.lang]}
 							sizes={this.frameSizes}
 							scrollUp={this.state.scrollUp}
 							disableScrollUp={this.disableScrollUp}
@@ -67,7 +60,7 @@ class HomePage extends React.Component {
 					</View>
 					<ActionButtons
 						needButtons={this.state.userIsActive}
-						languages={this.state.languages}
+						languages={Object.keys(this.expositor)}
 						selectedLang={this.state.lang}
 						handleTopClick={this.setScrollUp}
 						handleSelectLang={this.setLang}

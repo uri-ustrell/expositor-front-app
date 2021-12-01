@@ -19,7 +19,7 @@ export default class Frames extends React.Component {
 	}
 
 	render() {
-		return (
+		return this.props.frames && (
 			<ScrollView
 				horizontal
 				pagingEnabled
